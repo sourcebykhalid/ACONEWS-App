@@ -22,15 +22,18 @@ function News() {
   const [totalResults, setTotalResults] = useState(0);
   const [sortBy, setSortBy] = useState("publishedAt"); // Sorting option
   const [language, setLanguage] = useState("en");
-  const [category, setCategory] = useState("");
   const pageSize = 4; // Articles per page
+  const apiBaseUrl =
+    window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://aconews-a37c8.web.app/";
 
   useEffect(() => {
     const fetchNews = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:5000/api/news", {
-          params: { keyword, sortBy, language, category },
+        const response = await axios.get(`${apiBaseUrl}/api/news`, {
+          params: { keyword, sortBy, language },
         });
 
         setData(response.data.articles);
@@ -43,7 +46,7 @@ function News() {
     };
 
     fetchNews();
-  }, [keyword, sortBy, language, category]);
+  }, [keyword, sortBy, language]);
 
   const formatDate = (dateString) => {
     const options = {
@@ -71,9 +74,7 @@ function News() {
       case "language":
         setLanguage(value);
         break;
-      case "category":
-        setCategory(value);
-        break;
+
       default:
         break;
     }
@@ -131,33 +132,25 @@ function News() {
               <option value="en">English</option>
               <option value="es">Spanish</option>
               <option value="fr">French</option>
+              <option value="uk">Ukranian</option>
+              <option value="hi">Hindi</option>
             </select>
-          </label>
-
-          <label className="ml-4">
-            Category:
-            <input
-              type="text"
-              value={category}
-              onChange={(e) => handleFilterChange("category", e.target.value)}
-              className="p-2 border border-gray-300 rounded ml-2"
-            />
           </label>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-r-8 border-l-2 px-3 border-indigo-500 rounded-md">
         {currentPageData.map((article, index) => (
           <Card
             key={index}
-            className=" flex flow-col justify-center items-center"
+            className=" flex flow-col justify-center items-center py-3 px-2 border-b-2 border-emerald-500 rounded-md "
           >
             <Reveal>
               <CardHeader className="relative h-56 flex flex-col justify-center items-center">
                 <img
                   src={article.image || "https://via.placeholder.com/300"}
                   alt={article.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-sm border-b-2 border-emerald-500"
                 />
               </CardHeader>
               <CardBody>
