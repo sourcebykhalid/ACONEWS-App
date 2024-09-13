@@ -26,7 +26,7 @@ function News() {
   const apiBaseUrl =
     window.location.hostname === "localhost"
       ? "http://localhost:5000"
-      : "https://aconews-a37c8.web.app/";
+      : "https://aconews-app-2.onrender.com";
 
   useEffect(() => {
     const fetchNews = async () => {
