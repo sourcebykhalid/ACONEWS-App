@@ -7,8 +7,7 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
-import { FaUser } from "react-icons/fa";
-import { MdDateRange } from "react-icons/md";
+
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Reveal from "./Reveal";
 
